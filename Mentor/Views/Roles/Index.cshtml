@@ -1,0 +1,17 @@
+﻿@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<partial name="_Create" model="new IdentityRole()"></partial>
+
+<h4>Roles</h4>
+
+@foreach (var item in Model)
+{
+    <hr />
+    <br />
+    <h3>@item.Name</h3>
+    <br />
+}
