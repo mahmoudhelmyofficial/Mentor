@@ -1,0 +1,18 @@
+﻿@model JobCategory
+
+
+    <div >
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Category Name..." asp-for="Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+                <button class="btn btn-outline-secondary" type="submit">Create</button>
+            </div>
+        </form>
+    </div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Course>
+
+@{
+    ViewData["Title"] = "Jobs";
+}
+
+        <div class="events" id="Search">
+          <div class="container">
+            <div class="subscribe">
+              <form asp-action="Search">
+                <input type="search" name="term" style="font-size:19px;border:2px solid #2196f3;" placeholder="Search for Course or Instructor ...">
+                <input type="submit" value="Search">
+              </form>
+            </div>
+          </div>
+    </div>
+
+    @*<h2 style="height:50px;width:60px;border-bottom:2px solid">@category.Category.Name</h2>*@
+    <div class="articles">
+    <div class="container">
+        @foreach (var item in Model)
+            {
+                
+                @*@if (item.Category.Id == category.Category.Id )*@
+                            <div class="box">
+                              <div class="content">
+                                <h3>@item.Title</h3>
+                                <a asp-action="Inedx" asp-controller="InstructorProfile" 
+                                    asp-route-instructorUser="@item.Instructor">@item.Instructor</a>
+                                <p>@item.PublishDate</p>
+                                <p>@item.Description</p>
+                                <p>@item.CoursePrice</p>
+                              </div>
+                              <div class="info">
+                                <a asp-controller="Courses" asp-action="Details" asp-route-id="@item.Id">Read More</a>
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                              </div>
+                            </div>
+            }
+
+      </div>
+      </div>

@@ -1,0 +1,49 @@
+﻿@using Mentor.Models.Learn
+@model Instructor
+
+@{
+    ViewData["Title"] = $"Profile {@Model.UserName}";
+}
+
+@if(User.Identity.Name==Model.UserName){
+    <a asp-controller="EmployerProfiles" asp-action="Update" asp-route-user="@Model.UserName" 
+        class="btn btn-primary">Update Profile</a>
+    }
+<h2 class="mt-3">@Model.UserName</h2>
+<div class="mt-3">
+    <h5 class="d-inline">Rating : </h5>
+    <p class="d-inline">@Model.Rating</p>
+</div>
+<div class="mt-3">
+    <h5 class="d-inline">Courses : </h5>
+    <p class="d-inline">@Model.CoursesCount</p>
+    <p class="d-inline"> employees</p>
+</div>
+<div class="mt-3">
+    <h5 class="d-inline">WebSite : </h5>
+    <p class="d-inline">@Model.WebSite</p>
+</div>
+<br />
+<h2 class="mt-4">OpenVacancies</h2>
+<hr />
+
+@foreach (var item in Model.AllCourses) {
+
+    <div style="background-color:#f5f5f5">
+        <div style="padding:30px">
+            <div>
+                <h5 >@item.Title</h5>
+                <h6 class="mb-2">@item.PublishDate</h6>
+                <h6 class="mb-2">@item.CourseSubscriptions</h6>
+                <p>@item.CoursePrice</p>
+            </div>
+
+            @if (User.IsInRole("Student"))
+            {
+                <a asp-controller="Courses" asp-action="Subscribe" asp-route-id="@item.Id" 
+                    class="btn btn-primary">Apply</a>
+            }
+        </div>
+    </div>
+    <div style="height:15px"></div>
+}

@@ -1,0 +1,187 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = null;
+}
+@*
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="account" method="post">
+                <h2>Use a local account to log in.</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating mt-2">
+                    <input asp-for="Input.UserName" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="Input.UserName" class="form-label"></label>
+                    <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                </div>
+                <div class="form-floating mt-2">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                    <label asp-for="Input.Password" class="form-label"></label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div>
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe" class="form-label">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                </div>
+                <div>
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    </p>
+                    <p>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+        <section>
+            <h3>Use another service to log in.</h3>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                            about setting up this ASP.NET application to support logging in via external services</a>.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+*@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/Account/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="~/Account/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Account/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="~/Account/css/style.css">
+
+    <title>Mentor | Login</title>
+</head>
+<body>
+
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="~/Account/images/undraw_remotely_2j6y.svg" alt="Image" class="img-fluid">
+                </div>
+                <div class="col-md-6 contents">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="mb-4">
+                                <h3>Sign In</h3>
+                                <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+                            </div>
+                            <form method="post">
+                                <div class="form-group first mb-1">
+                                    <label for="username" id="userlabel">Username</label>
+                                    <input type="text" asp-for="Input.UserName" aria-required="true" class="form-control" 
+                                        autocomplete="username" class="form-control" id="username">
+
+                                    <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group last mb-4">
+                                    <label for="password">Password</label>
+                                    <input asp-for="Input.Password" aria-required="true" autocomplete="current-password" type="password" class="form-control" id="password">
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+
+                                <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0">
+                                        <span class="caption">Remember me</span>
+                                        <input type="checkbox" asp-for="Input.RememberMe" checked="checked" id="checked" />
+                                        <div class="control__indicator"></div>
+                                    </label>
+                                    <span class="ml-auto"><a asp-page="./ForgotPassword" class="forgot-pass">Forgot Password</a></span>
+                                </div>
+
+                                <input type="submit" value="Log In" class="btn btn-block btn-primary">
+                               
+@*
+                                <span class="d-block text-left my-4 text-muted">&mdash; or login with &mdash;</span>
+
+                                <div class="social-login">
+                                    <a href="#" class="facebook">
+                                        <span class="icon-facebook mr-3"></span>
+                                    </a>
+                                    <a href="#" class="twitter">
+                                        <span class="icon-twitter mr-3"></span>
+                                    </a>
+                                    <a href="#" class="google">
+                                        <span class="icon-google mr-3"></span>
+                                    </a>
+                                </div>*@
+                            </form>
+                            <a asp-area="Identity" asp-page="/Account/Register"
+                               class="btn btn-block btn-outline-primary mt-2" style="padding:15px;">Register</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/Account/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Account/js/popper.min.js"></script>
+    <script src="~/Account/js/bootstrap.min.js"></script>
+    <script src="~/Account/js/main.js"></script>
+</body>
+</html>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

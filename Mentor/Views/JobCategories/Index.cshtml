@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Mentor.Models.Job.JobCategory>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<partial name="Create" model="new JobCategory()"></partial>
+
+<table class="table table-striped mt-5">
+    <thead>
+        <tr>
+            <td>Category</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+            <td><h3>@item.Name</h3></td>
+            <td style="margin-left:23px">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary">Edit</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+            </td>
+
+        </tr>
+}
+</tbody>
+</table>

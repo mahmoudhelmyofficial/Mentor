@@ -1,0 +1,102 @@
+﻿@using Mentor.ViewModels
+@model InstructorsViewModel
+
+@{
+    ViewData["Title"] = "Join Now";
+    Layout = null;
+}
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/Account/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="~/Account/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Account/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="~/Account/css/style.css">
+
+    <title>Mentor | Register</title>
+</head>
+<body>
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="~/Account/images/undraw_remotely_2j6y.svg" alt="Image" class="img-fluid">
+                </div>
+                <div class="col-md-6 contents">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="mb-4">
+                                <h3>Register as an Instructor</h3>
+                                <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+                            </div>
+                            <form asp-action="Register" aspmethod="post">
+                                <div class="form-group first mb-1">
+                                    <label for="username" id="userlabel">First Name</label>
+                                    <input type="text" asp-for="FirstName" aria-required="true" class="form-control"
+                                           class="form-control" id="username">
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group first mb-1">
+                                    <label for="username" id="userlabel">Last Name</label>
+                                    <input type="text" asp-for="LastName" aria-required="true" class="form-control"
+                                           class="form-control" id="username">
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group first mb-1">
+                                    <label for="username" id="userlabel">Username</label>
+                                    <input type="text" asp-for="UserName" aria-required="true" class="form-control"
+                                           autocomplete="username" class="form-control" id="username">
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group first mb-1">
+                                    <label for="username" id="userlabel">Email</label>
+                                    <input type="text" asp-for="Email" aria-required="true" class="form-control"
+                                           class="form-control" id="username">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group last mb-1">
+                                    <label for="password">Password</label>
+                                    <input asp-for="Password" aria-required="true" autocomplete="current-password" type="password" class="form-control" id="password">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group last mb-4">
+                                    <label for="username" id="userlabel">Confirm Password</label>
+                                    <input type="password" asp-for="ConfirmPassword" aria-required="true" class="form-control"
+                                           class="form-control" id="username">
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
+                                <button type="submit" value="Register" class="btn btn-block btn-primary">Register</button> 
+                            </form>
+                            <a asp-area="Identity" asp-page="/Account/Login"
+                               class="btn btn-block btn-outline-primary mt-2" style="padding:15px;">Log In</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Account/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Account/js/popper.min.js"></script>
+    <script src="~/Account/js/bootstrap.min.js"></script>
+    <script src="~/Account/js/main.js"></script>
+</body>
+</html>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

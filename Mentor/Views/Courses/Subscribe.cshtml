@@ -1,0 +1,22 @@
+﻿@model Course
+
+@{
+    ViewData["Title"] = "Subscribe";
+}
+
+<h1>Subscribe</h1>
+
+<div>
+    <h4>CourseSubscriptions</h4>
+    <hr />
+
+    <form asp-action="Subscribe" method="post">
+        <dl class="row">
+            <dt class = "col-sm-2">
+                Title : @Model.Title
+                instructor : @Model.Instructor
+            </dt>
+        </dl>
+        <button type="submit" class="btn btn-primary">Subscription</button>
+    </form>
+</div>

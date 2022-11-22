@@ -1,0 +1,25 @@
+﻿@model Course
+
+
+@{
+    ViewData["Title"] = "Subscription List";
+}
+
+    <div class="articles">
+    <div class="container">
+        @foreach (var item in Model.CourseSubscriptions)
+            {
+                <div class="box">
+                  <div class="content">
+                    <h3>@item.StudentUser</h3>
+                    <p>@item.SubDate</p>
+                  </div>
+                  <div class="info">
+                    <a asp-controller="Courses" asp-action="Details" asp-route-id="@item.Id">View Student Profile</a>
+                    <i class="fas fa-long-arrow-alt-right"></i>
+                  </div>
+                </div>
+            }
+
+      </div>
+      </div>

@@ -1,0 +1,213 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var user = UserManager.FindByNameAsync(User.Identity.Name);
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Mentor</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Mentor.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="CSS/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Genos&family=Jost:wght@300&family=Open+Sans:wght@300;400;500;700;800&family=Raleway:wght@500&family=Work+Sans:wght@200;400;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg box-shadow" style="background-color:white">
+            <div class="container">
+                <a class="navbar-brand text-dark" asp-action="Index" asp-controller="Home" 
+                    style="font-size:24px;font-weight:bold;color:#73a8f8 !important;">Mentor</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                        aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-action="Index" asp-controller="Jobs" 
+                                style="font-size:18px">Browse Jobs</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-dark" asp-action="Index" asp-controller="Courses" 
+                                style="font-size:18px">Browse Learning</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            if (user.Result.ProfilePicture != null)
+                            {
+                                <li class="nav-item">
+                                    <img src="data:image\/*;base64,@(Convert.ToBase64String(user.Result.ProfilePicture))"
+                                 style="border-radius:50%;width:30px; height:30px;margin:6px" />
+                                </li>
+                            }
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" role="button" style="font-size:18px"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                    @User.Identity?.Name
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item text-dark" asp-action="Index" asp-controller="DashBoard"
+                                                asp-route-username="@User.Identity?.Name">DashBoard</a>
+                                        </li>
+                                    }
+                                    @if (User.IsInRole("Instructor"))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item text-dark" asp-action="Profile" asp-controller="Instructors"
+                                                asp-route-username="@User.Identity?.Name">Profile</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item text-dark" asp-action="Create" asp-controller="Courses"
+                                                asp-route-username="@User.Identity?.Name">Create Course</a>
+                                        </li>
+
+                                        <li>
+                                            <a class="dropdown-item text-dark" asp-action="InstructorCourses" 
+                                                asp-controller="Courses" asp-route-username="@User.Identity?.Name">My Courses</a>
+                                        </li>
+                                    }
+                                    @if (User.IsInRole("Employee"))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item text-dark" asp-action="Profile" asp-controller="Employee"
+                                                asp-route-username="@User.Identity?.Name">Profile</a>
+                                        </li>
+                                        <li>
+
+                                        <li>
+                                            <a class="dropdown-item text-dark" asp-controller="ApplyForJobs" asp-action="Index"
+                                                asp-route-username="@User.Identity?.Name">Applyed Jobs</a>
+                                        </li>
+
+                                        <a class="dropdown-item text-dark" asp-controller="SavedJobs" asp-action="Index"
+                                            asp-route-username="@User.Identity?.Name">Saved Jobs</a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item text-dark" asp-controller="ApplyForJobs" asp-action="Index"
+                                        asp-route-username="@User.Identity?.Name">Saved Courses</a>
+                                </li>
+                                    }
+
+                                    @if (User.IsInRole("Employer"))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item text-dark" asp-action="Index" 
+                                                asp-controller="EmployerProfiles"
+                                                asp-route-publisher="@User.Identity?.Name">Profile</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item text-dark" asp-controller="Jobs" asp-action="Create"
+                                                asp-route-username="@User.Identity?.Name">Crete Job</a>
+                                        </li>
+
+                                        <li>
+                                            <a class="dropdown-item text-dark" asp-controller="ApplyForJobs" 
+                                                asp-action="AllRequestes" asp-route-username="@User.Identity?.Name">Requestes</a>
+                                        </li>
+                                    }
+                            <li>
+                                <a class="dropdown-item text-dark" asp-area="Identity" 
+                                    asp-page="/Account/Manage/Index">Settings</a>
+                            </li>
+
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                                    asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+
+                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                        </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                            </li>
+
+                            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                                <ul class="navbar-nav">
+                                  <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">Join Now
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                      <li>
+                                          <a class="dropdown-item" asp-area="Identity"
+                                            asp-page="/Account/Register">Employee</a>
+                                      </li>
+                                      <li><a class="dropdown-item" asp-controller="Employers" 
+                                            asp-action="Register">Reqruiter</a>
+                                      </li>
+                                      <li><a class="dropdown-item" asp-controller="Instructors" 
+                                            asp-action="Register">Instructor</a></li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                            </div>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div>
+
+
+        @*modalView*@
+
+        <div class="modal" tabindex="-1" id="form-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Apply</h5>
+                        <button type="button" class="btn-close"
+                                data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (ViewData["Title"] == "Home Page")
+        {
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        }
+        <main role="main" class="container pb-3">
+            @RenderBody()
+        </main>
+
+    </div>
+    <div class="mt-5">
+        <footer style="position:absolute;bottom:0;height:50px;width:100%;background-color:#2196f3" class="mt-5">
+            <div style="text-align:center;position:absolute;top:14px;right:40%;font-size:17px;color:white">
+                Made With <i style="font-size:16px;margin:2px" class="fa-regular fa-heart"></i> by MahmoudHelmy
+            </div>
+        </footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    @await Component.InvokeAsync("NToastNotify")
+</body>
+</html>

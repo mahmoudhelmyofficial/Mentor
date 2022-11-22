@@ -1,0 +1,103 @@
+﻿@model CourseDetailsViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Mentor</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Mentor.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/webfonts">
+</head>
+<body>
+<div class="row mt-4">
+    <div class="col-md-6">
+    <div>
+    <h4>@Model.CourseDetails.Title</h4>
+    <dl class="row">
+        <dt class = "col-sm-2 mt-2">
+            @Html.DisplayNameFor(model => model.CourseDetails.Description)
+        </dt>
+        <dd class = "col-sm-12 mt-2">
+            @Html.DisplayFor(model => model.CourseDetails.Description)
+        </dd>
+        <dt class = "col-sm-2 mt-2">
+            @Html.DisplayNameFor(model => model.CourseDetails.Instructor)
+        </dt>
+        <dd class = "col-sm-12 mt-2">
+            @Html.DisplayFor(model => model.CourseDetails.Instructor)
+        </dd>
+        <dt class = "col-sm-2 mt-2">
+            @Html.DisplayNameFor(model => model.CourseDetails.PublishDate)
+        </dt>
+        <dd class = "col-sm-12 mt-2">
+            @Html.DisplayFor(model => model.CourseDetails.PublishDate)
+        </dd>
+        <dt class = "col-sm-2 mt-2">
+            @Html.DisplayNameFor(model => model.CourseDetails.StudentsCount)
+        </dt>
+        <dd class = "col-sm-12 mt-2">
+            @Html.DisplayFor(model => model.CourseDetails.StudentsCount)
+        </dd>
+        <dt class = "col-sm-2 mt-2">
+            @Html.DisplayNameFor(model => model.CourseDetails.CoursePrice) 
+        </dt>
+        <dd class = "col-sm-12 mt-2">
+            @Html.DisplayFor(model => model.CourseDetails.CoursePrice) $
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (User.IsInRole("Employee") || User.IsInRole("Student"))
+    {
+        @if (Model.CourseDetails.IfSubscribe == true)
+        {
+          
+            <a asp-action="Subscribe" asp-route-id="@Model?.CourseDetails.Id" class="btn btn-outline-primary">
+                Subscribed <i class="fa-solid fa-check"></i></a>
+        }
+    
+        else
+        {
+            <a asp-action="Subscribe" asp-route-id="@Model?.CourseDetails.Id" class="btn btn-primary">
+                Subscribe</a>
+        }   
+    }
+    @if (User.IsInRole("Instructor"))
+    {
+        <a asp-action="Students" asp-route-id="@Model?.CourseDetails.Id" 
+            class="btn btn-outline-primary">Students</a>
+    
+        <a asp-action="Delete" asp-route-id="@Model?.CourseDetails.Id" 
+            class="btn btn-outline-danger">Delete</a>
+    }
+                
+
+</div>
+</div>
+
+
+<div class="col-md-6">
+    <h4>Comments</h4>
+    @if (Model.CourseDetails.IfSubscribe == true)
+    {
+        <partial name="_CreateComment" model="new CourseComments()"></partial>   
+    }
+
+@*    @foreach (var item in Model.CourseComments) 
+    {
+        <p class="m-4">@item.CommentWriter : @item.Comment</p>
+        <hr />
+    }*@
+</div>
+
+</div>
+
+</body>
+</html>
+
+@{
+    ViewData["Title"] = "Details";
+}

@@ -1,0 +1,19 @@
+﻿@model CourseComments
+
+@{
+    var ID = ViewBag.ID;
+}
+
+<form asp-action="_CreateComment" method="post">
+
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Add Your Comment..." asp-for="Comment">
+        <input type="hidden" asp-for="CourseId" value="@Context.Request.RouteValues["id"]" />
+        <button class="btn btn-outline-secondary" type="submit">Share</button>
+    </div>
+
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

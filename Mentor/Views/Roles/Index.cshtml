@@ -1,0 +1,38 @@
+﻿@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "Roles";
+    Layout = "../shared/_DashBoardLayout.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+
+<partial name="_Create" model="new IdentityRole()"></partial>
+
+<h4>All Roles</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="line-parent">
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>
+                <a asp-action="ManagePermessions" class="btn btn-primary" asp-route-id="@item.Id">ManagePermessions </a>
+
+                @*<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id" >Delete</a>*@
+                <button class="btn btn-danger roleDelete" data-id="@item.Id">Delete</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+</div>
